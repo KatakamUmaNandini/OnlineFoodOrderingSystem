@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Header */
+header {
+  background-color: #ff5722;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 24px;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-actions input[type="text"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  width: 200px;
+  outline: none;
+}
+
+.header-actions .profile-icon {
+  font-size: 22px;
+  background-color: white;
+  color: #ff5722;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Main Layout */
+.main-container {
+  display: flex;
+  height: calc(100vh - 80px); /* Adjust based on header height */
+}
+
+/* Filter Panel */
+.filter-panel {
+  width: 25%;
+  background-color: #fff;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.filter-button {
+  padding: 10px 15px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filter-options {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.filter-options.active {
+  display: flex;
+}
+
+.sub-options {
+  display: none;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.sub-options.active {
+  display: flex;
+}
+
+.sub-options button {
+  padding: 8px 14px;
+  background-color: #ffece6;
+  color: #ff5722;
+  border: 1px solid #ffccbc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  width: 120px; /* Expanded width */
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.sub-options button:hover {
+  background-color: #ffd6c9;
+}
+
+
+/* Cards Section */
+.card-container {
+  width: 75%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+  overflow-y: auto;
+}
+
+/* Individual Card */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  overflow: hidden;
+  transition: 0.3s;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.card p {
+  color: #333;
+  margin: 5px 0;
+}
+
+.card button {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 10px auto;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.card button:hover {
+  background-color: #e64a19;
+}
+/* Sub-filter section */
+.sub-filter {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 10px;
+}
+
+.sub-filter button {
+  padding: 6px 12px;
+  background-color: #ffece6;
+  color: #ff5722;
+  border: 1px solid #ffccbc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.sub-filter button:hover {
+  background-color: #ffd6c9;
+}
+.cart-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #fff;
+}
+.popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4BB543;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+  animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  80% {opacity: 1;}
+  100% {opacity: 0;}
+}
+/* New Category Filter Buttons */
+.category-filters {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 20px 0;
+  flex-wrap: wrap;
+}
+
+.category-filters button {
+  padding: 8px 14px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.category-filters button:hover {
+  background-color: #e64a19;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login/Sign Up Flip Card</title>
+  <link rel="stylesheet" type="text/css" href="signup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card" id="card">
+      
+      <!-- Login Form -->
+      <div class="front">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <label for="login-name">Name</label>
+          <input type="text" id="login-name" name="name" required>
+
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" required>
+
+          <button type="submit">Login</button>
+        </form>
+        <p onclick="flipCard()">Don’t have an account? <span>Sign up</span></p>
+      </div>
+
+      <!-- Signup Form -->
+      <div class="back">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+          <label for="signup-name">Name</label>
+          <input type="text" id="signup-name" name="name" required>
+
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="password" required>
+
+          <button type="submit">Register</button>
+        </form>
+        <p onclick="flipCard()">Already have an account? <span>Login</span></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function flipCard() {
+      document.getElementById("card").classList.toggle("flipped");
+    }
+
+    // Handle login
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const name = document.getElementById("login-name").value;
+      const password = document.getElementById("login-password").value;
+
+      const response = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`
+      });
+
+      const text = await response.text();
+
+      if (response.ok && text.includes("Login successful")) {
+        alert("Login successful!");
+        document.getElementById("loginForm").reset();
+        window.location.href = "home.html"; // Redirect to home
+      } else {
+        alert(text);
+      }
+    });
+
+    // Handle signup
+    document.getElementById("signupForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const name = document.getElementById("signup-name").value;
+      const password = document.getElementById("signup-password").value;
+
+      const response = await fetch("/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`
+      });
+
+      const text = await response.text();
+      alert(text);
+
+      if (response.ok) {
+        document.getElementById("signupForm").reset();
+      }
+    });
+  </script>
+</body>
+</html>

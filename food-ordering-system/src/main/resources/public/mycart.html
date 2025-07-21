@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Cart</title>
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .cart-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f9f9f9;
+      border-radius: 10px;
+    }
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+    }
+    .cart-details {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .cart-footer {
+      text-align: right;
+      margin: 20px;
+    }
+    .total-bill {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .place-order-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Cart</h1>
+    <div class="header-actions">
+      <a href="home.html" class="profile-button" title="Back to Home">
+        <i class="fas fa-home"></i>
+      </a>
+    </div>
+  </header>
+
+  <main id="cartContainer"></main>
+
+  <div class="cart-footer">
+    <p class="total-bill">Total: ₹<span id="totalAmount">0</span></p>
+    <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <script>
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      const cartContainer = document.getElementById('cartContainer');
+      const totalAmountSpan = document.getElementById('totalAmount');
+      cartContainer.innerHTML = '';
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+
+        itemDiv.innerHTML = `
+          <img src="${item.imageUrl}" alt="${item.name}">
+          <div class="cart-details">
+            <h3>${item.name}</h3>
+            <p>Category: ${item.category}</p>
+            <p>Price: ₹${item.price}</p>
+          </div>
+          <button onclick="removeItem(${index})" style="padding: 8px 10px; background-color: red; color: white; border: none; border-radius: 5px;">Remove</button>
+        `;
+
+        total += item.price;
+        cartContainer.appendChild(itemDiv);
+      });
+
+      totalAmountSpan.textContent = total;
+    }
+
+    function removeItem(index) {
+      cartItems.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+      renderCart();
+    }
+
+    function placeOrder() {
+      if (cartItems.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      localStorage.removeItem('cart');
+      cartItems = [];
+      renderCart();
+      alert("Thank you for ordering. Your order is placed!");
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
